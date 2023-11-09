@@ -1,9 +1,8 @@
 {
   "name": "mujoco",
   "version": "2.3.2",
-  "port-version": 1,
   "description": "Multi-Joint dynamics with Contact.",
-  "homepage": "https://mujoco.org",
+  "homepage": "mujoco.org",
   "license": "Apache-2.0",
   "supports": "!(windows & static)",
   "dependencies": [

@@ -1,11 +1,10 @@
 {
   "name": "atk",
   "version": "2.38.0",
-  "port-version": 8,
+  "port-version": 5,
   "description": "GNOME Accessibility Toolkit",
   "homepage": "https://developer.gnome.org/atk/",
-  "license": "LGPL-2.0-or-later",
-  "supports": "!xbox",
+  "license": "GPL-2.0-only",
   "dependencies": [
     "gettext",
     {
@@ -30,7 +29,14 @@
     "introspection": {
       "description": "build with introspection",
       "dependencies": [
-        "gobject-introspection"
+        {
+          "name": "gobject-introspection",
+          "host": true
+        },
+        {
+          "name": "gobject-introspection",
+          "platform": "windows & x86"
+        }
       ]
     }
   }

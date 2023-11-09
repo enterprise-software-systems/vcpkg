@@ -1,3 +1,5 @@
+
+set(VERSION 2.0.0)
 vcpkg_download_distfile(ARCHIVE
     URLS "https://www.libsdl.org/projects/smpeg/release/smpeg2-${VERSION}.tar.gz"
     FILENAME "smpeg2-${VERSION}.tar.gz"
@@ -7,9 +9,11 @@ vcpkg_download_distfile(ARCHIVE
 vcpkg_extract_source_archive(
     SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
+    SOURCE_BASE "${VERSION}"
     PATCHES 
-        hufftable-uint.patch
-        003-fix-double-ptr-to-int-comparison.patch
+        "001-correct-sdl-headers-dir.patch"
+        "002-use-SDL2-headers.patch"
+        "003-fix-double-ptr-to-int-comparison.patch"
 )
 
 file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
@@ -17,22 +21,9 @@ file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS_DEBUG
-        -DSMPEG_SKIP_HEADERS=ON
-)
+        -DSMPEG_SKIP_HEADERS=ON)
+
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
 
-vcpkg_cmake_config_fixup(PACKAGE_NAME unofficial-smpeg2)
-file(READ "${CURRENT_PACKAGES_DIR}/share/unofficial-smpeg2/unofficial-smpeg2-config.cmake" config)
-file(WRITE "${CURRENT_PACKAGES_DIR}/share/unofficial-smpeg2/unofficial-smpeg2-config.cmake"
-"include(CMakeFindDependencyMacro)
-find_dependency(SDL2 CONFIG)
-${config}"
-)
-
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
-
-file(READ "${SOURCE_PATH}/video/video.h" video_terms)
-string(REGEX REPLACE "#ifndef .*" "" video_terms "${video_terms}")
-file(WRITE "${SOURCE_PATH}/Additional notes" "${video_terms}")
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING" "${SOURCE_PATH}/Additional notes")
+file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

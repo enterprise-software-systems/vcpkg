@@ -1,9 +1,9 @@
 {
   "name": "stackwalker",
-  "version-date": "2023-06-24",
+  "version": "1.20",
   "description": "StackWalker - Walking the callstack.",
   "license": "BSD-2-Clause",
-  "supports": "windows & !uwp",
+  "supports": "windows & !arm & !uwp",
   "dependencies": [
     {
       "name": "vcpkg-cmake",

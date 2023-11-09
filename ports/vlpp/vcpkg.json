@@ -1,7 +1,6 @@
 {
   "name": "vlpp",
   "version": "1.1.0.0",
-  "port-version": 1,
   "maintainers": "vczh",
   "description": "Common C++ construction, including string operation / generic container / linq / General-LR parser generator / multithreading / reflection for C++ / etc",
   "homepage": "https://github.com/vczh-libraries/Release",
@@ -69,8 +68,7 @@
       "description": "Enable Reflection"
     },
     "tools": {
-      "description": "Build tools",
-      "supports": "!osx"
+      "description": "Build tools"
     },
     "workflowcompiler": {
       "description": "Enable VlppWorkflow Compiler",

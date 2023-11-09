@@ -20,12 +20,7 @@
       "platform": "!osx"
     },
     "glew",
-    {
-      "name": "openimageio",
-      "features": [
-        "viewer"
-      ]
-    },
+    "openimageio",
     {
       "name": "vcpkg-cmake",
       "host": true

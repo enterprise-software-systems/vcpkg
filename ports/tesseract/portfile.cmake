@@ -5,12 +5,12 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO tesseract-ocr/tesseract
-    REF "${VERSION}"
-    SHA512 c04ae68ac4ecf85243c54feb4233e282cd420522588fd4b3eaa87619cb236a575052e3667a806c2f56de06dc013b88926c2dbea4cb4ee02f0119c032598169f2
+    REF 080da83cc51c4ef8b324a7e03146fe0bd7e0944b #5.3.0
+    SHA512 77f7e69ca220edb51f0d1e21fae67288759bbefb6868203cd095c4457b16d7319d78cd47dd8e72be3da5aabb357f5f649b8da7fc3f2263faedecf10f556eb431
     PATCHES
         ${tesseract_patch}
-        fix_static_link_icu.patch
-        fix-link-include-path.patch
+        fix-tools.patch # See https://github.com/tesseract-ocr/tesseract/pull/4006
+        fix-debug-postfix.patch # See https://github.com/tesseract-ocr/tesseract/pull/4008
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
@@ -29,7 +29,6 @@ vcpkg_cmake_configure(
         -DCMAKE_DISABLE_FIND_PACKAGE_OpenCL=ON
         -DLeptonica_DIR=YES
         -DSW_BUILD=OFF
-        -DLEPT_TIFF_RESULT=ON
     MAYBE_UNUSED_VARIABLES
         CMAKE_DISABLE_FIND_PACKAGE_OpenCL
 )
@@ -56,8 +55,9 @@ if("training-tools" IN_LIST FEATURES)
         ambiguous_words classifier_tester combine_tessdata
         cntraining dawg2wordlist mftraining shapeclustering
         wordlist2dawg combine_lang_model lstmeval lstmtraining
-        set_unicharset_properties unicharset_extractor merge_unicharsets
-        )
+        set_unicharset_properties unicharset_extractor text2image
+        merge_unicharsets
+    )
     vcpkg_copy_tools(TOOL_NAMES ${TRAINING_TOOLS} AUTO_CLEAN)
 endif()
 
@@ -103,4 +103,4 @@ file(GLOB WORDREC_HEADER_FILES LIST_DIRECTORIES false "${SOURCE_PATH}/src/wordre
 file(INSTALL ${WORDREC_HEADER_FILES} DESTINATION "${CURRENT_PACKAGES_DIR}/include/tesseract/wordrec")
 
 # Handle copyright
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
+file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

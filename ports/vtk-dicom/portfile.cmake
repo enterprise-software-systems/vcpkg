@@ -21,10 +21,7 @@ endif()
 
 set(python_ver "")
 if(NOT VCPKG_TARGET_IS_WINDOWS)
-    file(GLOB _py3_include_path "${CURRENT_HOST_INSTALLED_DIR}/include/python3*")
-    string(REGEX MATCH "python3\\.([0-9]+)" _python_version_tmp ${_py3_include_path})
-    set(PYTHON_VERSION_MINOR "${CMAKE_MATCH_1}")
-    set(python_ver "3.${PYTHON_VERSION_MINOR}")
+    set(python_ver 3.10)
 endif()
 
 vcpkg_cmake_configure(

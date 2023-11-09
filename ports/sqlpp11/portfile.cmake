@@ -6,7 +6,6 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
         ddl2cpp_path.patch
-        fix_link_sqlite3.patch
 )
 
 vcpkg_check_features(

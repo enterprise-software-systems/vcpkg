@@ -8,7 +8,7 @@ vcpkg_from_sourceforge(
     REPO ngspice/ng-spice-rework
     REF ${VERSION}
     FILENAME "ngspice-${VERSION}.tar.gz"
-    SHA512 fb0960cc9fcde1871fad82571cacebb1f5cce09ee3297cc938a24b88173ed102a2cb3f246599cdfbde7275e45e3d551edd0368e3ba6e79c592937c4cc466325e
+    SHA512 724415cea3249d049d796360f5f59ec5e68edb1899e82b0fbd68455791863c274abe1a505b7148ef96adbb485bc677d38432fa4effe4069bbdfe284ff3e59921
     PATCHES
         use-winbison-sharedspice.patch
         use-winbison-vngspice.patch
@@ -31,22 +31,25 @@ file(REMOVE_RECURSE "${SOURCE_PATH}/man")
 file(REMOVE_RECURSE "${SOURCE_PATH}/tests")
 
 # this builds the main dll
-vcpkg_msbuild_install(
+vcpkg_install_msbuild(
     SOURCE_PATH "${SOURCE_PATH}"
+    INCLUDES_SUBPATH /src/include
+    LICENSE_SUBPATH COPYING
     # install_msbuild swaps x86 for win32(bad) if we dont force our own setting
     PLATFORM ${TRIPLET_SYSTEM_ARCH}
     PROJECT_SUBPATH visualc/sharedspice.sln
     TARGET Build
 )
 
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
-file(COPY "${SOURCE_PATH}/src/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
-
 if("codemodels" IN_LIST FEATURES)
     # vngspice generates "codemodels" to enhance simulation capabilities
     # we cannot use install_msbuild as they output with ".cm" extensions on purpose
-    vcpkg_msbuild_install(
-        SOURCE_PATH "${SOURCE_PATH}"
+    set(BUILDTREE_PATH "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}")
+    file(REMOVE_RECURSE "${BUILDTREE_PATH}")
+    file(COPY "${SOURCE_PATH}/" DESTINATION "${BUILDTREE_PATH}")
+
+    vcpkg_install_msbuild(
+        SOURCE_PATH "${BUILDTREE_PATH}"
         PROJECT_SUBPATH visualc/vngspice.sln
         # build_msbuild swaps x86 for win32(bad) if we dont force our own setting
         PLATFORM ${TRIPLET_SYSTEM_ARCH}
@@ -64,22 +67,23 @@ if("codemodels" IN_LIST FEATURES)
     endif()
 
     #put the code models in the intended location
-    if(NOT VCPKG_BUILD_TYPE)
-      file(GLOB NGSPICE_CODEMODELS_DEBUG
-          "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg/visualc/codemodels/${OUT_ARCH}/Debug/*.cm"
-      )
-      file(COPY ${NGSPICE_CODEMODELS_DEBUG} DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/ngspice")
-    endif()
+    file(GLOB NGSPICE_CODEMODELS_DEBUG
+        "${BUILDTREE_PATH}/visualc/codemodels/${OUT_ARCH}/Debug/*.cm"
+    )
+    file(COPY ${NGSPICE_CODEMODELS_DEBUG} DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/ngspice")
 
     file(GLOB NGSPICE_CODEMODELS_RELEASE
-        "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/visualc/codemodels/${OUT_ARCH}/Release/*.cm"
+        "${BUILDTREE_PATH}/visualc/codemodels/${OUT_ARCH}/Release/*.cm"
     )
     file(COPY ${NGSPICE_CODEMODELS_RELEASE} DESTINATION "${CURRENT_PACKAGES_DIR}/lib/ngspice")
 
+
     # copy over spinit (spice init)
-    file(COPY "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/visualc/spinit_all" DESTINATION "${CURRENT_PACKAGES_DIR}/share/ngspice")
-    file(RENAME "${CURRENT_PACKAGES_DIR}/share/ngspice/spinit_all" "${CURRENT_PACKAGES_DIR}/share/ngspice/spinit")
+    file(RENAME "${BUILDTREE_PATH}/visualc/spinit_all" "${BUILDTREE_PATH}/visualc/spinit")
+    file(COPY "${BUILDTREE_PATH}/visualc/spinit" DESTINATION "${CURRENT_PACKAGES_DIR}/share/ngspice")
 endif()
+
+vcpkg_copy_pdbs()
 
 # Unforunately install_msbuild isn't able to dual include directories that effectively layer
 file(GLOB NGSPICE_INCLUDES "${SOURCE_PATH}/visualc/src/include/ngspice/*")

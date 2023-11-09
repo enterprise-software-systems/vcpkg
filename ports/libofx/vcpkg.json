@@ -1,11 +1,10 @@
 {
   "name": "libofx",
   "version": "0.10.9",
-  "port-version": 1,
   "description": "OFX banking protocol abstraction library",
   "homepage": "https://github.com/libofx/libofx",
   "license": "GPL-2.0-only",
-  "supports": "!uwp & !xbox",
+  "supports": "!uwp",
   "dependencies": [
     "libopensp",
     {

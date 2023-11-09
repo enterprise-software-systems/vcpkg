@@ -1,11 +1,9 @@
 {
   "name": "shiva",
   "version": "1.0",
-  "port-version": 7,
+  "port-version": 5,
   "description": "Modern C++ Game Engine",
   "homepage": "https://github.com/Milerius/shiva",
-  "license": "MIT",
-  "supports": "!(static & windows)",
   "dependencies": [
     "boost-dll",
     "boost-filesystem",
@@ -18,7 +16,6 @@
     },
     "nlohmann-json",
     "pybind11",
-    "python3",
     "sol2",
     "spdlog",
     {

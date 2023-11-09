@@ -9,7 +9,7 @@ vcpkg_from_github(
 )
 
 if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
-    configure_file("${CMAKE_CURRENT_LIST_DIR}/SDL_mixer_2017.sln.in" "${SOURCE_PATH}/VisualC/SDL_mixer_2017.sln" COPYONLY)
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/SDL_mixer_2017.sln" DESTINATION "${SOURCE_PATH}/VisualC/")
     
     if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
         set(LIB_TYPE StaticLibrary)
@@ -73,7 +73,7 @@ else()
     vcpkg_install_make()
     vcpkg_fixup_pkgconfig()
     
-    vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
+    file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
 endif()
 
 file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

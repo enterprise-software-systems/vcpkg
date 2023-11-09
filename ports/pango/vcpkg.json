@@ -1,11 +1,9 @@
 {
   "name": "pango",
   "version": "1.50.14",
-  "port-version": 4,
   "description": "Text and font handling library.",
   "homepage": "https://ftp.gnome.org/pub/GNOME/sources/pango/",
-  "license": "LGPL-2.0-or-later",
-  "supports": "!xbox",
+  "license": "LGPL-2.0-only",
   "dependencies": [
     {
       "name": "cairo",
@@ -39,6 +37,14 @@
     "introspection": {
       "description": "build with introspection",
       "dependencies": [
+        {
+          "name": "gobject-introspection",
+          "host": true
+        },
+        {
+          "name": "gobject-introspection",
+          "platform": "windows & x86"
+        },
         {
           "name": "harfbuzz",
           "features": [

@@ -6,8 +6,6 @@ vcpkg_from_github(
     REF 1.0.1
     SHA512 a41749e1b62d5549b821429a03e456a0cb41fbc1ea3fe5e8067f80994fb4645c3145dd1e2a3ccaed13b091ec24338d4e542849628d346f26d2275b0cbff8f4c6
     HEAD_REF master
-    PATCHES
-        fix-platform-name.patch
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
@@ -25,4 +23,4 @@ vcpkg_cmake_install(DISABLE_PARALLEL)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/License")
+file(INSTALL "${SOURCE_PATH}/License" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

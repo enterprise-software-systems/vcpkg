@@ -40,12 +40,12 @@ if("zlib" IN_LIST FEATURES)
     list(APPEND B2_OPTIONS
         -sZLIB_INCLUDE="${CURRENT_INSTALLED_DIR}/include"
     )
-    # Overwride windows library names
-    if(WIN32)
-        if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # Overwride debug library name
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        if(WIN32)
             set(ZLIB_NAME zlibd)
         else()
-            set(ZLIB_NAME zlib) # for mingw
+            set(ZLIB_NAME z)
         endif()
         list(APPEND B2_OPTIONS
             -sZLIB_NAME=${ZLIB_NAME}

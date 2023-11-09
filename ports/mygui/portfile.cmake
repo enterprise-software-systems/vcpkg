@@ -5,20 +5,17 @@ vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO MyGUI/mygui
-    REF MyGUI${VERSION}
-    SHA512 202f3df35f0767778b5a91b71dbd1ad3409d0a1977d5fbe3f0d48db430276c71b84edc5a28dd1fdb8e60245b56f2bda99872a4d860b83585f08406b28fb850fe
+    REF 81e5c67e92920607d16bc2aee1ac32f6fd7d446b #v3.4.1
+    SHA512 b13e0a08559b3ddfe42ffcc6cf017fb20d50168785fb551e16f613c60b9ea28a65056a9bc42bdab876368f40dcba1772bc704ad0928c45d8b32e909abc0f1916 
     HEAD_REF master
     PATCHES
         fix-generation.patch
+        Use-vcpkg-sdl2.patch
         Install-tools.patch
-        opengl.patch
-        sdl2-static.patch
+        fix-osx-build.patch # from https://github.com/MyGUI/mygui/pull/244
 )
 
-if(VCPKG_TARGET_ARCHITECTURE STREQUAL "wasm32")
-    message(STATUS "Setting MYGUI_RENDERSYSTEM to 8 (GLES) - officially supported MyGUI render system for wasm32")
-    set(MYGUI_RENDERSYSTEM 8)
-elseif("opengl" IN_LIST FEATURES)
+if("opengl" IN_LIST FEATURES)
     set(MYGUI_RENDERSYSTEM 4)
 else()
     set(MYGUI_RENDERSYSTEM 1)

@@ -6,7 +6,6 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
         fix-dependency.patch
-        use-requires.patch
 )
 
 vcpkg_check_features(

@@ -1,6 +1,6 @@
 {
   "name": "qt",
-  "version": "6.6.0",
+  "version": "6.5.0",
   "description": "Qt",
   "homepage": "https://www.qt.io/",
   "license": null,
@@ -52,7 +52,6 @@
       "platform": "linux"
     },
     "qtdoc",
-    "qtgrpc",
     {
       "name": "qtimageformats",
       "default-features": false,

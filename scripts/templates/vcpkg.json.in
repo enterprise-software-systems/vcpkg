@@ -3,7 +3,6 @@
   "version": "",
   "homepage": "",
   "description": "",
-  "license": "",
   "dependencies": [
     {
       "name": "vcpkg-cmake",
@@ -12,10 +11,11 @@
   ],
 
   "default-features": [],
-  "features": {
-    "example-feature": {
+  "features": [
+    {
+      "name": "",
       "description": "",
       "dependencies": []
     }
-  }
+  ]
 }

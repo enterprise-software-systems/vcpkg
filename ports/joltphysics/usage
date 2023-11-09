@@ -1,4 +1,4 @@
- joltphysics provides CMake targets:
+The package joltphysics can be used from CMake via:
 
-    find_package(unofficial-joltphysics CONFIG REQUIRED)
-    target_link_libraries(main PRIVATE unofficial::joltphysics::Jolt)
+    find_path(JOLTPHYSICS_INCLUDE_DIRS "Jolt/Jolt.h")
+    target_include_directories(main PRIVATE ${JOLTPHYSICS_INCLUDE_DIRS})

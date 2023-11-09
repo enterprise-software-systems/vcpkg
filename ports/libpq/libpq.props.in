@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
-    <ClCompile>
+    <CLCompile>
       <AdditionalOptions>%(AdditionalOptions) @VCPKG_COMBINED_C_FLAGS_DEBUG@</AdditionalOptions>
-    </ClCompile>
+    </CLCompile>
     <Link>
       <AdditionalOptions>%(AdditionalOptions) @VCPKG_COMBINED_SHARED_LINKER_FLAGS_DEBUG@</AdditionalOptions>
     </Link>
@@ -12,9 +12,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
-    <ClCompile>
+    <CLCompile>
       <AdditionalOptions>%(AdditionalOptions) @VCPKG_COMBINED_C_FLAGS_RELEASE@</AdditionalOptions>
-    </ClCompile>
+    </CLCompile>
     <Link>
       <AdditionalOptions>%(AdditionalOptions) @VCPKG_COMBINED_SHARED_LINKER_FLAGS_RELEASE@</AdditionalOptions>
     </Link>

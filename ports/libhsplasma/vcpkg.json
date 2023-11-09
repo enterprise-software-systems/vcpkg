@@ -1,10 +1,10 @@
 {
   "name": "libhsplasma",
-  "version-date": "2023-05-08",
+  "version-date": "2022-05-19",
   "description": "Cross-platform Plasma data and network library",
   "homepage": "https://github.com/H-uru/libhsplasma",
   "license": "GPL-3.0-or-later",
-  "supports": "!(arm | uwp | xbox)",
+  "supports": "!(arm | uwp)",
   "dependencies": [
     "libjpeg-turbo",
     "libpng",

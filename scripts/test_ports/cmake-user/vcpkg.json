@@ -39,11 +39,6 @@
       "description": "Ports to be tested via find_package($package)",
       "dependencies": [
         {
-          "$package": "Boost",
-          "name":"boost",
-          "platform": "!uwp"
-        },
-        {
           "$package": "BZip2",
           "name": "bzip2"
         },

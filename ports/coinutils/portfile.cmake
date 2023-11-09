@@ -11,18 +11,12 @@ file(COPY "${CURRENT_INSTALLED_DIR}/share/coin-or-buildtools/" DESTINATION "${SO
 set(ENV{ACLOCAL} "aclocal -I \"${SOURCE_PATH}/BuildTools\"")
 
 #--enable-msvc
-set(options "")
-if("glpk" IN_LIST FEATURES)
-    list(APPEND options "--with-glpk")
-else()
-    list(APPEND options "--without-glpk")
-endif()
 
 vcpkg_configure_make(
     SOURCE_PATH "${SOURCE_PATH}"
     AUTOCONFIG
     OPTIONS
-        ${options}
+        --with-glpk
         --with-lapack
         --without-netlib
         --without-sample

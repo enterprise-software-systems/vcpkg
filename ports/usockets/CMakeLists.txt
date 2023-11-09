@@ -13,10 +13,10 @@ else()
 endif()
 
 find_package(libuv CONFIG REQUIRED)
-if (TARGET libuv::uv)
-    set(LIBUV_LIBRARY libuv::uv)
+if (TARGET uv)
+    set(LIBUV_LIBRARY uv)
 else()
-    set(LIBUV_LIBRARY libuv::uv_a)
+    set(LIBUV_LIBRARY uv_a)
 endif()
 
 file(GLOB SOURCES src/*.c src/eventing/*.c)

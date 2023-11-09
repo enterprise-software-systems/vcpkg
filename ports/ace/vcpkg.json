@@ -1,19 +1,11 @@
 {
   "name": "ace",
-  "version": "7.1.2",
+  "version": "7.1.0",
   "port-version": 1,
   "maintainers": "Johnny Willemsen <jwillemsen@remedy.nl>",
   "description": "The ADAPTIVE Communication Environment",
   "homepage": "https://github.com/DOCGroup/ACE_TAO",
   "license": "DOC",
-  "supports": "!uwp",
-  "dependencies": [
-    {
-      "name": "vcpkg-msbuild",
-      "host": true,
-      "platform": "windows"
-    }
-  ],
   "features": {
     "ssl": {
       "description": "Enable SSL/TLS features in ACE",
@@ -22,8 +14,7 @@
       ]
     },
     "tao": {
-      "description": "The ACE ORB",
-      "supports": "native | !(windows & arm)"
+      "description": "The ACE ORB"
     },
     "wchar": {
       "description": "Enable extra wide char functions in ACE",

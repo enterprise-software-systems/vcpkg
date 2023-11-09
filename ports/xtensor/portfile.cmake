@@ -8,7 +8,6 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
         fix-find-tbb-and-install-destination.patch
-        fix-find-xsimd.patch
 )
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS

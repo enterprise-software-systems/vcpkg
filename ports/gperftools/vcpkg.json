@@ -1,10 +1,10 @@
 {
   "name": "gperftools",
-  "version": "2.10",
-  "port-version": 1,
+  "version-date": "2019-09-02",
+  "port-version": 4,
   "description": "A set of tools for performance profiling and memory checking",
   "homepage": "https://github.com/gperftools/gperftools",
-  "supports": "!(arm & windows) & !uwp & !android",
+  "supports": "!(arm | arm64 | uwp)",
   "dependencies": [
     {
       "name": "vcpkg-cmake",
@@ -14,12 +14,10 @@
   ],
   "features": {
     "override": {
-      "description": "Override allocators",
-      "supports": "windows & staticcrt"
+      "description": "Override allocators"
     },
     "tools": {
-      "description": "Build gperftools CLI tools",
-      "supports": "windows"
+      "description": "Build gperftools CLI tools"
     }
   }
 }

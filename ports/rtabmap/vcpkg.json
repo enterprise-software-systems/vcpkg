@@ -1,7 +1,7 @@
 {
   "name": "rtabmap",
   "version": "0.21.0",
-  "port-version": 2,
+  "port-version": 1,
   "description": "Real-Time Appearance-Based Mapping",
   "homepage": "https://introlab.github.io/rtabmap/",
   "license": "BSD-3-Clause",
@@ -119,7 +119,10 @@
       "dependencies": [
         {
           "name": "realsense2",
-          "default-features": false
+          "default-features": false,
+          "features": [
+            "tm2"
+          ]
         }
       ]
     },

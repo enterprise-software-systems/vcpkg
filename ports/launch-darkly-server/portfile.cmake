@@ -7,7 +7,6 @@ vcpkg_from_github(
     PATCHES
         findPCRE.patch
         FixStrictPrototypes.patch # required with clang-15
-        removeWarningAsError.patch
 )
 
 

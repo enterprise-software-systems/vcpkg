@@ -1,8 +1,7 @@
 {
   "name": "stduuid",
-  "version": "1.2.3",
+  "version": "1.2.2",
   "description": "A C++17 cross-platform implementation for UUIDs",
-  "homepage": "https://github.com/mariusbancila/stduuid",
   "license": "MIT",
   "dependencies": [
     {

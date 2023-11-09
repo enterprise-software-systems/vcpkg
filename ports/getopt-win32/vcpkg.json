@@ -1,8 +1,9 @@
 {
   "name": "getopt-win32",
-  "version": "1.1.0.20220925",
+  "version": "0.1",
+  "port-version": 7,
   "description": "An implementation of getopt.",
-  "homepage": "https://www.codeproject.com/Articles/157001/Full-getopt-Port-for-Unicode-and-Multibyte-Microso/",
+  "homepage": "https://github.com/libimobiledevice-win32/getopt",
   "license": "LGPL-3.0-only",
   "supports": "windows & !mingw",
   "dependencies": [

@@ -8,8 +8,7 @@
       "default-features": false,
       "features": [
         "mpi"
-      ],
-      "platform":"!(arm & windows)"
+      ]
     },
     {
       "name": "boost-asio",
@@ -23,16 +22,14 @@
       "default-features": false,
       "features": [
         "numa"
-      ],
-      "platform":"!uwp & !arm & !emscripten"
+      ]
     },
     {
       "name": "boost-locale",
       "default-features": false,
       "features": [
         "icu"
-      ],
-      "platform":"!uwp"
+      ]
     },
     {
       "name": "boost-mpi",
@@ -40,47 +37,29 @@
       "features": [
         "python3"
       ],
-      "platform": "!static & !(arm & windows)"
-    },
-    {
-      "name":"boost-odeint",
-      "default-features":false
+      "platform": "!static"
     },
     {
       "name": "boost-odeint",
       "default-features": false,
       "features": [
         "mpi"
-      ],
-      "platform": "!(arm & windows)"
-    },
-    {
-      "name": "boost-python",
-      "default-features":false,
-      "features":[
-        "python2"
-      ],
-      "platform":"!(arm & windows)"
+      ]
     },
     {
       "name": "boost-python",
       "default-features": false,
       "features": [
+        "python2",
         "python3"
-      ],
-      "platform":"!uwp"
-    },
-    {
-      "name":"boost-regex",
-      "default-features":false
+      ]
     },
     {
       "name": "boost-regex",
       "default-features": false,
       "features": [
         "icu"
-      ],
-      "platform":"!uwp"
+      ]
     }
   ]
 }

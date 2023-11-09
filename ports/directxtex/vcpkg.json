@@ -1,6 +1,7 @@
 {
   "name": "directxtex",
-  "version-date": "2023-10-28",
+  "version-date": "2023-04-28",
+  "port-version": 1,
   "description": "DirectXTex texture processing library",
   "homepage": "https://github.com/Microsoft/DirectXTex",
   "documentation": "https://github.com/microsoft/DirectXTex/wiki",
@@ -9,7 +10,7 @@
   "dependencies": [
     {
       "name": "directx-headers",
-      "platform": "mingw | linux"
+      "platform": "(windows & !xbox) | linux"
     },
     "directxmath",
     {
@@ -33,13 +34,7 @@
       "description": "Build with DirectX11 support"
     },
     "dx12": {
-      "description": "Build with DirectX12 support for Windows 10/Windows 11",
-      "dependencies": [
-        {
-          "name": "directx-headers",
-          "platform": "windows & !xbox"
-        }
-      ]
+      "description": "Build with DirectX12 support for Windows 10/Windows 11"
     },
     "openexr": {
       "description": "Enable OpenEXR support",

@@ -26,15 +26,14 @@ else()
   endif()
 endif()
 
-vcpkg_msbuild_install(
+vcpkg_install_msbuild(
     SOURCE_PATH "${SOURCE_PATH}"
     PROJECT_SUBPATH RStein.AsyncCppLib.sln
+    LICENSE_SUBPATH LICENSE
     PLATFORM "${TRIPLET_SYSTEM_ARCH}"
     DEBUG_CONFIGURATION "${DEBUG_CONFIGURATION}"
     RELEASE_CONFIGURATION "${RELEASE_CONFIGURATION}"
 )
-
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
 
 file(COPY "${SOURCE_PATH}/RStein.AsyncCpp/"
     DESTINATION "${CURRENT_PACKAGES_DIR}/include/asynccpp"

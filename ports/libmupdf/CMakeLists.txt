@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(libmupdf)
-
-option(ENABLE_OCR "Build with OCR" OFF)
+project(libmupdf C)
 
 set(CMAKE_DEBUG_POSTFIX d)
 
@@ -27,19 +25,10 @@ find_package(ZLIB REQUIRED)
 find_package(OpenJPEG CONFIG REQUIRED)
 find_library(JBIG2DEC_LIB NAMES jbig2decd jbig2dec)
 
-if (ENABLE_OCR)
-  find_package(Leptonica CONFIG REQUIRED)
-  find_package(Tesseract CONFIG REQUIRED)
-endif()
-
-file(GLOB_RECURSE SOURCES "source/*.c" "generated/*.c" "source/*.h")
+file(GLOB_RECURSE SOURCES "source/*.c" "generated/*.c")
 list(FILTER SOURCES EXCLUDE REGEX "source/tools/[a-z]*\\.c$")
 list(FILTER SOURCES EXCLUDE REGEX "source/tests/.*.c$")
 list(FILTER SOURCES EXCLUDE REGEX "source/fitz/output-docx.c")
-
-if (ENABLE_OCR)
-  list(APPEND SOURCES "source/fitz/tessocr.cpp")
-endif()
 
 add_library(libmupdf ${SOURCES})
 
@@ -48,14 +37,6 @@ if(WIN32)
 else()
   target_compile_definitions(libmupdf PRIVATE -DHAVE_PTHREAD=1 -DSHARE_JPEG -DFZ_ENABLE_JS=0 -DFZ_ENABLE_ICC=0 -DMEMENTO_MUPDF_HACKS -DFZ_ENABLE_DOCX_OUTPUT=0 -DFZ_ENABLE_ODT_OUTPUT=0)
 endif()
-
-
-if (ENABLE_OCR)
-  target_compile_definitions(libmupdf PRIVATE -DHAVE_TESSERACT=1 -DHAVE_LEPTONICA=1)
-else()
-  target_compile_definitions(libmupdf PRIVATE -DOCR_DISABLED=1)
-endif()
-
 target_include_directories(libmupdf
   PUBLIC
     include
@@ -64,14 +45,6 @@ target_include_directories(libmupdf
     ${JPEG_INCLUDE_DIR}
     ${HARFBUZZ_INCLUDE}
 )
-
-if (ENABLE_OCR)
-target_include_directories(libmupdf
-  PRIVATE
-    ${Leptonica_INCLUDE_DIRS}
-)
-endif()
-
 target_link_libraries(libmupdf PRIVATE
   openjp2
   freetype

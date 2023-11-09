@@ -1,7 +1,7 @@
 {
   "name": "cpprestsdk",
   "version": "2.10.18",
-  "port-version": 4,
+  "port-version": 2,
   "description": [
     "C++11 JSON, REST, and OAuth library",
     "The C++ REST SDK is a Microsoft project for cloud-based client-server communication in native code using a modern asynchronous C++ API design. This project aims to help C++ developers connect to and interact with services."
@@ -55,11 +55,7 @@
     }
   ],
   "default-features": [
-    {
-      "name": "brotli",
-      "platform": "windows"
-    },
-    "compression"
+    "default-features"
   ],
   "features": {
     "brotli": {
@@ -79,6 +75,25 @@
       "description": "HTTP Compression support",
       "dependencies": [
         "zlib"
+      ]
+    },
+    "default-features": {
+      "description": "Features installed by default",
+      "dependencies": [
+        {
+          "name": "cpprestsdk",
+          "default-features": false,
+          "features": [
+            "compression"
+          ]
+        },
+        {
+          "name": "cpprestsdk",
+          "features": [
+            "brotli"
+          ],
+          "platform": "windows"
+        }
       ]
     },
     "websockets": {

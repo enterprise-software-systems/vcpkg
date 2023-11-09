@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param (
     $libraries = @(),
-    $version = "1.83.0",
+    $version = "1.82.0",
     $portsDir = $null
 )
 
@@ -22,12 +22,9 @@ else {
 }
 
 # Clear this array when moving to a new boost version
-$defaultPortVersion = 0
+$defaultPortVersion = 1
 $portVersions = @{
-    'boost' = 1;
-    'boost-fiber' = 1;
-    'boost-iostreams' = 1;
-    'boost-modular-build-helper' = 1;
+    #e.g. "boost-asio" = 1;
 }
 
 function Get-PortVersion {
@@ -36,7 +33,7 @@ function Get-PortVersion {
     )
 
     $nonDefault = $portVersions[$PortName]
-    if ($null -ne $nonDefault) {
+    if ($nonDefault -ne $null) {
         return $nonDefault
     }
 
@@ -62,7 +59,7 @@ $portData = @{
     };
     "boost-beast"            = @{ "supports" = "!emscripten" };
     "boost-fiber"            = @{
-        "supports" = "!uwp & !(arm & windows) & !emscripten";
+        "supports" = "!uwp & !arm & !emscripten";
         "features" = @{
             "numa" = @{
                 "description" = "Enable NUMA support";
@@ -180,6 +177,17 @@ function GeneratePortDependency() {
     }
 }
 
+function MakePortVersionString() {
+    param (
+        [string]$PortName
+    )
+    $thisPortVersion = Get-PortVersion $PortName
+    if ($thisPortVersion -ne 0) {
+        return $version + '#' + $thisPortVersion
+    }
+
+    return $version
+}
 
 function AddBoostVersionConstraints() {
     param (
@@ -190,14 +198,14 @@ function AddBoostVersionConstraints() {
     foreach ($dependency in $Dependencies) {
         if ($dependency.Contains("name")) {
             if ($dependency.name.StartsWith("boost")) {
-                $dependency["version>="] = $version
+                $dependency["version>="] = MakePortVersionString $dependency.name
             }
         }
         else {
             if ($dependency.StartsWith("boost")) {
                 $dependency = @{
                     "name"       = $dependency
-                    "version>="  = $version
+                    "version>="  = MakePortVersionString $dependency
                 }
             }
         }
@@ -582,7 +590,6 @@ foreach ($library in $libraries) {
         # break unnecessary dependencies
         $deps = @($deps | ? {
             -not (
-                ($library -eq 'ublas' -and $_ -eq 'compute') -or # PR #29325
                 ($library -eq 'gil' -and $_ -eq 'filesystem') # PR #20575
             )
         })
